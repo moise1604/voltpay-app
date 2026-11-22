@@ -992,12 +992,37 @@ function selectPay(el) {
   el.classList.add('selected');
 }
 
-function showSuccess() {
-  const now = new Date();
-  document.getElementById('success-time').textContent =
-    now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ', ' +
-    now.toLocaleDateString([], {month: 'short', day: 'numeric'});
-  document.getElementById('success-modal').classList.add('open');
+async function showSuccess() {
+  const meter = document.querySelector('#screen-recharge select').value;
+  const amount = document.getElementById('recharge-amount').value;
+  const method = document.querySelector('.pay-method.selected .pay-name').textContent;
+  const btn = document.querySelector('#screen-recharge .btn-primary');
+
+  btn.textContent = 'Processing…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://node-red-railway-template-production-49cab2ca.up.railway.app/api/recharge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ meter, amount, method })
+    });
+    const data = await res.json();
+    if (data.success) {
+      const now = new Date();
+      document.getElementById('success-time').textContent =
+        now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ', ' +
+        now.toLocaleDateString([], {month: 'short', day: 'numeric'});
+      document.getElementById('success-modal').classList.add('open');
+    } else {
+      alert('Recharge failed. Please try again.');
+    }
+  } catch(e) {
+    alert('Connection error. Please try again.');
+  } finally {
+    btn.textContent = 'Pay & Recharge →';
+    btn.disabled = false;
+  }
 }
 
 function closeSuccess() {
