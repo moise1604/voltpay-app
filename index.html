@@ -250,8 +250,12 @@ body::before {
   display: flex; align-items: center; justify-content: center;
   font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.6rem; flex-shrink: 0;
 }
-.pay-logo.momo { background: #FFD700; color: #0A1628; }
-.pay-logo.card { background: #1A1F36; color: #fff; }
+.pay-logo.momo   { background: #FFD700; color: #0A1628; }
+.pay-logo.airtel { background: #E00000; color: #fff; }
+.pay-logo.mpesa  { background: #00A651; color: #fff; }
+.pay-logo.tigo   { background: #0073CF; color: #fff; }
+.pay-logo.orange { background: #FF6600; color: #fff; }
+.pay-logo.card   { background: #1A1F36; color: #fff; }
 .pay-info { flex: 1; }
 .pay-name { font-weight: 600; font-size: 0.9rem; }
 .pay-desc { font-size: 0.75rem; color: var(--fg-muted); }
@@ -554,23 +558,9 @@ body::before {
 
     <div class="form-group">
       <label class="form-label">Payment method</label>
-      <div class="pay-methods">
-        <div class="pay-method selected" onclick="selectPay(this)">
-          <div class="pay-logo momo">MTN<br>MoMo</div>
-          <div class="pay-info">
-            <div class="pay-name">MTN Mobile Money</div>
-            <div class="pay-desc">Rwanda | Instant</div>
-          </div>
-          <div class="pay-check"></div>
-        </div>
-        <div class="pay-method" onclick="selectPay(this)">
-          <div class="pay-logo card">VISA<br>MC</div>
-          <div class="pay-info">
-            <div class="pay-name">Visa / Mastercard</div>
-            <div class="pay-desc">International | Via PesaPal</div>
-          </div>
-          <div class="pay-check"></div>
-        </div>
+      <div class="pay-methods" id="pay-methods-list">
+        <!-- populated dynamically when meter is selected -->
+        <div style="font-size:0.85rem;color:var(--fg-muted);padding:0.5rem 0">Select a meter above to see available payment options.</div>
       </div>
     </div>
 
@@ -624,6 +614,13 @@ body::before {
           <div>
             <div class="country-name">Tanzania</div>
             <div class="country-util">TANESCO</div>
+          </div>
+        </button>
+        <button class="country-opt" data-country="DRC" data-flag="&#127464;&#127465;" data-currency="CDF" data-util="SNEL" onclick="selectCountry(this)">
+          <span class="country-flag">&#127464;&#127465;</span>
+          <div>
+            <div class="country-name">DR Congo</div>
+            <div class="country-util">SNEL</div>
           </div>
         </button>
       </div>
@@ -751,10 +748,48 @@ function saveMeters(m) {
 
 // Country configs
 const COUNTRIES = {
-  Rwanda:   { flag: '\u{1F1F7}\u{1F1FC}', currency: 'RWF', util: 'REG / EUCL' },
-  Uganda:   { flag: '\u{1F1FA}\u{1F1EC}', currency: 'UGX', util: 'UMEME' },
-  Kenya:    { flag: '\u{1F1F0}\u{1F1EA}', currency: 'KES', util: 'KPLC' },
-  Tanzania: { flag: '\u{1F1F9}\u{1F1FF}', currency: 'TZS', util: 'TANESCO' }
+  Rwanda: {
+    flag: '\u{1F1F7}\u{1F1FC}', currency: 'RWF', util: 'REG / EUCL',
+    payments: [
+      { id: 'mtn-rw',    logo: 'MTN\nMoMo', logoClass: 'momo',   name: 'MTN Mobile Money', desc: 'Instant | Rwanda' },
+      { id: 'airtel-rw', logo: 'Airtel\nMoney', logoClass: 'airtel', name: 'Airtel Money',     desc: 'Instant | Rwanda' },
+      { id: 'card',      logo: 'VISA\nMC',  logoClass: 'card',   name: 'Visa / Mastercard',  desc: 'International | Via PesaPal' }
+    ]
+  },
+  Uganda: {
+    flag: '\u{1F1FA}\u{1F1EC}', currency: 'UGX', util: 'UMEME',
+    payments: [
+      { id: 'mtn-ug',    logo: 'MTN\nMoMo', logoClass: 'momo',   name: 'MTN Mobile Money', desc: 'Instant | Uganda' },
+      { id: 'airtel-ug', logo: 'Airtel\nMoney', logoClass: 'airtel', name: 'Airtel Money',     desc: 'Instant | Uganda' },
+      { id: 'card',      logo: 'VISA\nMC',  logoClass: 'card',   name: 'Visa / Mastercard',  desc: 'International | Via PesaPal' }
+    ]
+  },
+  Kenya: {
+    flag: '\u{1F1F0}\u{1F1EA}', currency: 'KES', util: 'KPLC',
+    payments: [
+      { id: 'mpesa',     logo: 'M-\nPesa',  logoClass: 'mpesa',  name: 'M-Pesa',            desc: 'Instant | Kenya' },
+      { id: 'airtel-ke', logo: 'Airtel\nMoney', logoClass: 'airtel', name: 'Airtel Money',     desc: 'Instant | Kenya' },
+      { id: 'card',      logo: 'VISA\nMC',  logoClass: 'card',   name: 'Visa / Mastercard',  desc: 'International | Via PesaPal' }
+    ]
+  },
+  Tanzania: {
+    flag: '\u{1F1F9}\u{1F1FF}', currency: 'TZS', util: 'TANESCO',
+    payments: [
+      { id: 'vodacom',   logo: 'Voda\nM-Pesa', logoClass: 'mpesa', name: 'Vodacom M-Pesa',   desc: 'Instant | Tanzania' },
+      { id: 'airtel-tz', logo: 'Airtel\nMoney', logoClass: 'airtel', name: 'Airtel Money',    desc: 'Instant | Tanzania' },
+      { id: 'tigo',      logo: 'Tigo\nPesa',  logoClass: 'tigo',  name: 'Tigo Pesa',         desc: 'Instant | Tanzania' },
+      { id: 'card',      logo: 'VISA\nMC',    logoClass: 'card',  name: 'Visa / Mastercard', desc: 'International | Via PesaPal' }
+    ]
+  },
+  DRC: {
+    flag: '\u{1F1E8}\u{1F1E9}', currency: 'CDF', util: 'SNEL',
+    payments: [
+      { id: 'mpesa-cd',  logo: 'M-\nPesa',   logoClass: 'mpesa',  name: 'M-Pesa (Vodacom)', desc: 'Instant | DRC' },
+      { id: 'airtel-cd', logo: 'Airtel\nMoney', logoClass: 'airtel', name: 'Airtel Money',   desc: 'Instant | DRC' },
+      { id: 'orange-cd', logo: 'Orange\nMoney', logoClass: 'orange', name: 'Orange Money',   desc: 'Instant | DRC' },
+      { id: 'card',      logo: 'VISA\nMC',   logoClass: 'card',   name: 'Visa / Mastercard', desc: 'International | Via PesaPal' }
+    ]
+  }
 };
 
 // ── INIT ──
@@ -864,8 +899,14 @@ function renderRechargeSelect() {
       const c = COUNTRIES[m.country] || {};
       document.getElementById('recharge-currency-hint').textContent =
         'Currency: ' + (c.currency || 'RWF') + ' | Utility: ' + (c.util || '');
+      renderPayMethods(c.payments || []);
     }
   };
+  // Show default payment methods for first meter if available
+  if (meters.length > 0) {
+    const firstC = COUNTRIES[meters[0].country] || {};
+    renderPayMethods(firstC.payments || []);
+  }
 }
 
 // ── RECHARGE ──
@@ -873,6 +914,24 @@ function setAmount(val, el) {
   document.getElementById('recharge-amount').value = val;
   document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
+}
+
+function renderPayMethods(methods) {
+  const el = document.getElementById('pay-methods-list');
+  if (!methods || methods.length === 0) {
+    el.innerHTML = '<div style="font-size:0.85rem;color:var(--fg-muted);padding:0.5rem 0">No payment methods available.</div>';
+    return;
+  }
+  el.innerHTML = methods.map((m, i) =>
+    '<div class="pay-method' + (i === 0 ? ' selected' : '') + '" onclick="selectPay(this)" data-pay-id="' + m.id + '" data-pay-name="' + escHtml(m.name) + '">' +
+      '<div class="pay-logo ' + m.logoClass + '">' + m.logo.replace('\n', '<br>') + '</div>' +
+      '<div class="pay-info">' +
+        '<div class="pay-name">' + escHtml(m.name) + '</div>' +
+        '<div class="pay-desc">' + escHtml(m.desc) + '</div>' +
+      '</div>' +
+      '<div class="pay-check"></div>' +
+    '</div>'
+  ).join('');
 }
 
 function selectPay(el) {
@@ -887,7 +946,9 @@ async function showSuccess() {
   if (mIdx === '') { alert('Please select a meter.'); return; }
   const meter  = meters[mIdx];
   const amount = document.getElementById('recharge-amount').value;
-  const method = document.querySelector('.pay-method.selected .pay-name').textContent;
+  const selPay = document.querySelector('.pay-method.selected');
+  const method = selPay ? (selPay.dataset.payName || selPay.querySelector('.pay-name').textContent) : 'Unknown';
+  if (!selPay) { alert('Please select a payment method.'); return; }
   const btn    = document.querySelector('#screen-recharge .btn-primary');
   const c      = COUNTRIES[meter.country] || { currency: 'RWF' };
 
