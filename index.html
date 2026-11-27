@@ -5,7 +5,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 
 <style>
-/* Layout: mobile-first single-column app shell with bottom nav */
 :root {
   --bg: #EDF2FA;
   --surface: #FFFFFF;
@@ -23,255 +22,133 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #060E22;
-    --surface: #0D1A38;
-    --fg: #E8EEF8;
-    --fg-muted: #7A91B8;
-    --border: #172447;
-    --accent: #00E676;
-    --accent-dim: #052A18;
-    --accent-dark: #00D97E;
-    --navy: #030A18;
-    --navy-mid: #0A1530;
+    --bg: #060E22; --surface: #0D1A38; --fg: #E8EEF8; --fg-muted: #7A91B8;
+    --border: #172447; --accent: #00E676; --accent-dim: #052A18;
+    --accent-dark: #00D97E; --navy: #030A18; --navy-mid: #0A1530;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #060E22;
-  --surface: #0D1A38;
-  --fg: #E8EEF8;
-  --fg-muted: #7A91B8;
-  --border: #172447;
-  --accent: #00E676;
-  --accent-dim: #052A18;
-  --accent-dark: #00D97E;
-  --navy: #030A18;
-  --navy-mid: #0A1530;
+  --bg: #060E22; --surface: #0D1A38; --fg: #E8EEF8; --fg-muted: #7A91B8;
+  --border: #172447; --accent: #00E676; --accent-dim: #052A18;
+  --accent-dark: #00D97E; --navy: #030A18; --navy-mid: #0A1530;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html, body {
-  height: 100%;
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  height: 100%; font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg); color: var(--fg);
+  font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
 }
-
 body {
-  display: flex;
-  flex-direction: column;
-  max-width: 480px;
-  margin: 0 auto;
-  position: relative;
-  overflow-x: hidden;
+  display: flex; flex-direction: column;
+  max-width: 480px; margin: 0 auto;
+  position: relative; overflow-x: hidden;
 }
+h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; text-wrap: balance; }
 
-h1, h2, h3, h4 {
-  font-family: 'Space Grotesk', sans-serif;
-  text-wrap: balance;
-}
-
-/* ── SCREENS ── */
-.screen {
-  display: none;
-  flex-direction: column;
-  flex: 1;
-  min-height: 100%;
-}
+.screen { display: none; flex-direction: column; flex: 1; min-height: 100%; }
 .screen.active { display: flex; }
 
-/* ── TOP BAR ── */
 .topbar {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 10;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: var(--surface); border-bottom: 1px solid var(--border);
   padding: 0.9rem max(16px, env(safe-area-inset-left, 0px));
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto;
+  content: ""; position: fixed; inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  background: var(--surface);
-  z-index: 11;
+  background: var(--surface); z-index: 11;
 }
 .topbar .logo {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--fg);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 1.25rem; color: var(--fg);
+  display: flex; align-items: center; gap: 6px;
 }
 .logo-bolt {
-  width: 26px; height: 26px;
-  background: var(--accent);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; background: var(--accent);
+  border-radius: 7px; display: flex; align-items: center; justify-content: center;
 }
 .logo-bolt svg { width: 14px; height: 14px; fill: #0B1F4A; }
 .topbar-actions { display: flex; gap: 10px; align-items: center; }
 .icon-btn {
-  width: 36px; height: 36px;
-  border: none; background: var(--bg);
+  width: 36px; height: 36px; border: none; background: var(--bg);
   border-radius: 50%; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  color: var(--fg-muted);
-  transition: background 0.15s;
+  color: var(--fg-muted); transition: background 0.15s;
 }
 .icon-btn:hover { background: var(--border); }
 .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
 
-/* ── SCROLL CONTENT ── */
 .scroll-content {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; overflow-y: auto;
   padding: 1.25rem max(16px, env(safe-area-inset-left, 0px));
   padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
 }
 
-/* ── BOTTOM NAV ── */
 .bottom-nav {
-  position: fixed;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 480px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  display: flex;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  z-index: 10;
+  background: var(--surface); border-top: 1px solid var(--border);
+  display: flex; padding-bottom: env(safe-area-inset-bottom, 0px); z-index: 10;
 }
 .nav-item {
-  flex: 1;
-  display: flex; flex-direction: column;
+  flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 3px;
-  padding: 10px 0;
-  border: none; background: none; cursor: pointer;
-  color: var(--fg-muted);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  transition: color 0.15s;
+  gap: 3px; padding: 10px 0; border: none; background: none; cursor: pointer;
+  color: var(--fg-muted); font-family: 'Inter', sans-serif;
+  font-size: 0.7rem; font-weight: 500; transition: color 0.15s;
 }
 .nav-item.active { color: var(--accent); }
 .nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; }
 
-/* ── HERO / BALANCE CARD ── */
+/* BALANCE CARD */
 .balance-card {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  border-radius: 20px;
-  padding: 1.5rem;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
+  border-radius: 20px; padding: 1.5rem; color: #fff;
+  position: relative; overflow: hidden;
 }
 .balance-card::after {
-  content: "";
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 160px; height: 160px;
-  background: var(--accent);
-  opacity: 0.08;
-  border-radius: 50%;
+  content: ""; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; background: var(--accent); opacity: 0.08; border-radius: 50%;
 }
 .balance-card::before {
-  content: "";
-  position: absolute;
-  bottom: -60px; left: -20px;
-  width: 200px; height: 200px;
-  background: var(--accent);
-  opacity: 0.05;
-  border-radius: 50%;
+  content: ""; position: absolute; bottom: -60px; left: -20px;
+  width: 200px; height: 200px; background: var(--accent); opacity: 0.05; border-radius: 50%;
 }
-.balance-label {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
+.balance-label { font-size: 0.75rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+.balance-amount { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; margin-bottom: 0.5rem; }
+.balance-sub { font-size: 0.78rem; opacity: 0.6; margin-bottom: 1rem; }
+.meter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.meter-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12); border-radius: 8px;
+  padding: 5px 10px; font-size: 0.78rem; font-weight: 500;
+  cursor: pointer; transition: background 0.15s;
 }
-.balance-amount {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 1.2rem;
-}
-.balance-meter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 0.65rem 0.9rem;
-}
-.meter-info { display: flex; flex-direction: column; gap: 2px; }
-.meter-serial { font-size: 0.75rem; opacity: 0.6; font-family: 'Space Grotesk', sans-serif; }
-.meter-name { font-weight: 600; font-size: 0.9rem; }
-.meter-status {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 0.75rem;
-  color: var(--accent);
-}
-.status-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
-}
+.meter-chip:hover { background: rgba(255,255,255,0.2); }
+.meter-chip .flag { font-size: 1rem; }
+.meter-chip .chip-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.meter-chip .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
-/* ── QUICK ACTIONS ── */
+/* SECTION / ACTIONS */
 .section-label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--fg-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+  font-size: 0.85rem; color: var(--fg-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
 }
-.quick-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+.quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .action-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.1rem;
-  display: flex; flex-direction: column;
-  align-items: flex-start; gap: 10px;
-  cursor: pointer;
-  transition: border-color 0.15s, transform 0.1s;
-  text-align: left;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.1rem;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  cursor: pointer; transition: border-color 0.15s, transform 0.1s; text-align: left;
 }
 .action-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
-.action-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-}
+.action-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .action-icon svg { width: 20px; height: 20px; }
 .action-icon.green { background: var(--accent-dim); color: var(--accent-dark); }
 .action-icon.blue { background: #EEF2FF; color: #4F46E5; }
@@ -285,269 +162,220 @@ body::before {
 :root[data-theme="dark"] .action-icon.blue { background: #1E2040; color: #818CF8; }
 :root[data-theme="dark"] .action-icon.orange { background: #201808; color: #FB923C; }
 :root[data-theme="dark"] .action-icon.purple { background: #1C1030; color: #A78BFA; }
-.action-label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--fg);
-}
+.action-label { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--fg); }
 
-/* ── TRANSACTION LIST ── */
+/* TRANSACTION LIST */
 .tx-list { display: flex; flex-direction: column; gap: 2px; }
 .tx-item {
   display: flex; align-items: center; gap: 12px;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0; border-bottom: 1px solid var(--border);
 }
 .tx-item:last-child { border-bottom: none; }
 .tx-icon {
-  width: 40px; height: 40px; flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
+  background: var(--accent-dim); display: flex; align-items: center; justify-content: center;
 }
 .tx-icon svg { width: 18px; height: 18px; stroke: var(--accent-dark); fill: none; stroke-width: 2; }
 .tx-details { flex: 1; min-width: 0; }
 .tx-title { font-weight: 500; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tx-sub { font-size: 0.75rem; color: var(--fg-muted); margin-top: 1px; }
-.tx-amount { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums; color: #0A0F1E; white-space: nowrap; }
-.tx-amount.negative { color: var(--danger); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tx-amount { color: #E8EEF8; } }
-:root[data-theme="dark"] .tx-amount { color: #E8EEF8; }
+.tx-amount { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums; color: var(--accent-dark); white-space: nowrap; }
 
-/* ── RECHARGE SCREEN ── */
-.recharge-header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  padding: 1.5rem max(16px, env(safe-area-inset-left, 0px));
-  color: #fff;
-}
-.recharge-header h2 { font-size: 1.3rem; margin-bottom: 0.25rem; }
-.recharge-header p { font-size: 0.85rem; opacity: 0.65; }
-
+/* FORMS */
 .form-group { display: flex; flex-direction: column; gap: 6px; }
 .form-label { font-size: 0.8rem; font-weight: 500; color: var(--fg-muted); letter-spacing: 0.03em; }
 .form-input {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 0.75rem 0.9rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: var(--fg);
-  transition: border-color 0.15s;
-  width: 100%;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 0.75rem 0.9rem;
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--fg);
+  transition: border-color 0.15s; width: 100%;
 }
 .form-input:focus { outline: none; border-color: var(--accent); }
 .form-input::placeholder { color: var(--fg-muted); opacity: 0.6; }
 
-.amount-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 4px;
+/* COUNTRY SELECTOR */
+.country-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
 }
+.country-opt {
+  border: 1.5px solid var(--border); background: var(--surface);
+  border-radius: 10px; padding: 0.75rem 0.9rem;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; transition: all 0.15s; text-align: left;
+}
+.country-opt:hover { border-color: var(--accent); }
+.country-opt.selected { border-color: var(--accent); background: var(--accent-dim); }
+.country-flag { font-size: 1.5rem; }
+.country-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--fg); }
+.country-util { font-size: 0.72rem; color: var(--fg-muted); }
+
+/* VERIFY BOX */
+.verify-box {
+  background: var(--accent-dim); border: 1.5px solid var(--accent);
+  border-radius: 12px; padding: 1rem; display: none; gap: 10px;
+  align-items: flex-start;
+}
+.verify-box.show { display: flex; }
+.verify-icon { font-size: 1.3rem; flex-shrink: 0; }
+.verify-title { font-weight: 600; font-size: 0.9rem; color: var(--accent-dark); }
+.verify-sub { font-size: 0.8rem; color: var(--fg-muted); margin-top: 2px; }
+
+.error-box {
+  background: #FEF2F2; border: 1.5px solid #FECACA;
+  border-radius: 12px; padding: 1rem; display: none;
+  font-size: 0.85rem; color: #DC2626;
+}
+.error-box.show { display: block; }
+
+/* AMOUNT GRID */
+.amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
 .amount-chip {
-  border: 1.5px solid var(--border);
-  background: var(--surface);
-  border-radius: 8px;
-  padding: 0.5rem;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--fg);
-  transition: all 0.15s;
+  border: 1.5px solid var(--border); background: var(--surface);
+  border-radius: 8px; padding: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; color: var(--fg); transition: all 0.15s;
 }
 .amount-chip:hover, .amount-chip.selected { border-color: var(--accent); background: var(--accent-dim); color: var(--accent-dark); }
 
+/* PAYMENT METHODS */
 .pay-methods { display: flex; flex-direction: column; gap: 8px; }
 .pay-method {
-  display: flex; align-items: center; gap: 12px;
-  padding: 0.9rem;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: border-color 0.15s;
+  display: flex; align-items: center; gap: 12px; padding: 0.9rem;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 12px; cursor: pointer; transition: border-color 0.15s;
 }
 .pay-method.selected { border-color: var(--accent); background: var(--accent-dim); }
 .pay-logo {
-  width: 44px; height: 28px;
-  border-radius: 6px;
+  width: 44px; height: 28px; border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 0.6rem;
-  flex-shrink: 0;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.6rem; flex-shrink: 0;
 }
 .pay-logo.momo { background: #FFD700; color: #0A1628; }
 .pay-logo.card { background: #1A1F36; color: #fff; }
 .pay-info { flex: 1; }
 .pay-name { font-weight: 600; font-size: 0.9rem; }
 .pay-desc { font-size: 0.75rem; color: var(--fg-muted); }
-.pay-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.pay-check {
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
 .pay-method.selected .pay-check { background: var(--accent); border-color: var(--accent); }
 .pay-method.selected .pay-check::after { content: ""; width: 6px; height: 6px; background: #0A1628; border-radius: 50%; }
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .btn-primary {
-  background: var(--accent);
-  color: #0A1628;
-  border: none;
-  border-radius: 12px;
-  padding: 0.9rem 1.5rem;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  width: 100%;
-  cursor: pointer;
-  transition: transform 0.1s, opacity 0.15s;
+  background: var(--accent); color: #0A1628; border: none;
+  border-radius: 12px; padding: 0.9rem 1.5rem;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+  width: 100%; cursor: pointer; transition: transform 0.1s, opacity 0.15s;
 }
 .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-secondary {
-  background: var(--surface);
-  color: var(--fg);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 0.85rem 1.5rem;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  width: 100%;
-  cursor: pointer;
-  transition: border-color 0.15s;
+  background: var(--surface); color: var(--fg); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 0.85rem 1.5rem;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem;
+  width: 100%; cursor: pointer; transition: border-color 0.15s;
 }
 .btn-secondary:hover { border-color: var(--accent); }
 
-/* ── AUTH SCREEN ── */
+/* AUTH SCREEN */
 .auth-screen {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem max(16px, env(safe-area-inset-left, 0px));
-  gap: 2rem;
+  min-height: 100%; display: flex; flex-direction: column;
+  padding: 2rem max(16px, env(safe-area-inset-left, 0px)); gap: 2rem;
 }
-.auth-hero {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 12px; padding-top: 2rem; text-align: center;
-}
-.auth-logo {
-  width: 64px; height: 64px;
-  background: var(--navy);
-  border-radius: 18px;
-  display: flex; align-items: center; justify-content: center;
-}
+.auth-hero { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-top: 2rem; text-align: center; }
+.auth-logo { width: 64px; height: 64px; background: var(--navy); border-radius: 18px; display: flex; align-items: center; justify-content: center; }
 .auth-logo svg { width: 32px; height: 32px; fill: var(--accent); }
 .auth-hero h1 { font-size: 1.75rem; font-weight: 700; }
 .auth-hero p { color: var(--fg-muted); font-size: 0.9rem; max-width: 280px; }
 .auth-form { display: flex; flex-direction: column; gap: 14px; }
-.auth-divider {
-  display: flex; align-items: center; gap: 12px;
-  color: var(--fg-muted); font-size: 0.8rem;
-}
-.auth-divider::before, .auth-divider::after {
-  content: ""; flex: 1; height: 1px; background: var(--border);
-}
+.auth-divider { display: flex; align-items: center; gap: 12px; color: var(--fg-muted); font-size: 0.8rem; }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 .auth-footer { text-align: center; font-size: 0.85rem; color: var(--fg-muted); padding-bottom: 1rem; }
 .auth-footer a { color: var(--accent); font-weight: 600; cursor: pointer; }
 
-/* ── METERS SCREEN ── */
+/* METERS SCREEN */
 .meter-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 1.1rem;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 1.1rem;
   display: flex; flex-direction: column; gap: 12px;
 }
 .meter-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.meter-card-flag { font-size: 1.6rem; flex-shrink: 0; }
 .meter-badge {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600;
 }
 .meter-badge.online { background: var(--accent-dim); color: var(--accent-dark); }
 .meter-badge.offline { background: #FEF2F2; color: #DC2626; }
 .meter-card-serial { font-size: 0.75rem; color: var(--fg-muted); font-family: 'Space Grotesk', sans-serif; }
 .meter-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; }
+.meter-card-country { font-size: 0.78rem; color: var(--fg-muted); margin-top: 1px; }
 .meter-card-row { display: flex; justify-content: space-between; gap: 10px; }
 .meter-stat { display: flex; flex-direction: column; gap: 2px; }
 .meter-stat-label { font-size: 0.72rem; color: var(--fg-muted); }
 .meter-stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
 
-/* ── SUCCESS MODAL ── */
+/* EMPTY STATE */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; padding: 3rem 1rem; text-align: center;
+}
+.empty-icon { font-size: 3rem; }
+.empty-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; }
+.empty-sub { color: var(--fg-muted); font-size: 0.9rem; max-width: 240px; }
+
+/* SUCCESS MODAL */
 .modal-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 100;
-  align-items: flex-end;
-  justify-content: center;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 100;
+  align-items: flex-end; justify-content: center;
 }
 .modal-overlay.open { display: flex; }
 .modal-sheet {
-  background: var(--surface);
-  border-radius: 24px 24px 0 0;
+  background: var(--surface); border-radius: 24px 24px 0 0;
   padding: 2rem max(16px, env(safe-area-inset-left, 0px));
   padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
   width: 100%; max-width: 480px;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 1.25rem;
-  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center;
 }
 .success-icon {
-  width: 72px; height: 72px;
-  background: var(--accent-dim);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; background: var(--accent-dim);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
 }
 .success-icon svg { width: 36px; height: 36px; stroke: var(--accent-dark); fill: none; stroke-width: 2.5; }
 .modal-title { font-size: 1.4rem; font-weight: 700; }
 .modal-sub { font-size: 0.9rem; color: var(--fg-muted); max-width: 280px; }
 .modal-detail {
-  background: var(--bg);
-  border-radius: 12px;
-  padding: 1rem;
-  width: 100%;
-  display: flex; flex-direction: column; gap: 8px;
+  background: var(--bg); border-radius: 12px; padding: 1rem;
+  width: 100%; display: flex; flex-direction: column; gap: 8px;
 }
 .detail-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
 .detail-row span:first-child { color: var(--fg-muted); }
 .detail-row span:last-child { font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
 
-/* ── PROFILE SCREEN ── */
+/* PROFILE */
 .profile-hero {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
   padding: 2rem max(16px, env(safe-area-inset-left, 0px)) 1.5rem;
-  color: #fff;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  text-align: center;
+  color: #fff; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
 }
 .avatar {
-  width: 72px; height: 72px;
-  border-radius: 50%;
-  background: var(--accent);
+  width: 72px; height: 72px; border-radius: 50%; background: var(--accent);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 1.5rem;
-  color: #0A1628;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: #0A1628;
 }
 .profile-name { font-size: 1.1rem; font-weight: 700; }
 .profile-email { font-size: 0.8rem; opacity: 0.6; }
 .profile-tag {
   display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(255,255,255,0.12);
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 0.75rem;
+  background: rgba(255,255,255,0.12); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
 }
 .settings-list { display: flex; flex-direction: column; gap: 2px; }
 .settings-item {
   display: flex; align-items: center; gap: 12px;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
+  padding: 0.9rem 0; border-bottom: 1px solid var(--border); cursor: pointer;
 }
 .settings-item:last-child { border-bottom: none; }
 .settings-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -555,23 +383,27 @@ body::before {
 .settings-label { flex: 1; font-size: 0.9rem; font-weight: 500; }
 .settings-arrow { color: var(--fg-muted); }
 .settings-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* SPINNER */
+.spinner {
+  width: 20px; height: 20px; border: 2px solid rgba(0,0,0,0.15);
+  border-top-color: #0A1628; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%,100% { opacity:1;transform:scale(1); } 50% { opacity:0.5;transform:scale(0.85); } }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════
-     AUTH SCREEN
-═══════════════════════════════════════════════════════ -->
+<!-- AUTH SCREEN -->
 <div id="screen-auth" class="screen active">
   <div class="auth-screen">
     <div class="auth-hero">
       <div class="auth-logo">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
       </div>
       <h1>VoltPay</h1>
       <p>Recharge electricity meters anywhere in the world, instantly.</p>
     </div>
-
     <div class="auth-form">
       <div class="form-group">
         <label class="form-label">Email address</label>
@@ -579,30 +411,21 @@ body::before {
       </div>
       <div class="form-group">
         <label class="form-label">Password</label>
-        <input class="form-input" type="password" placeholder="••••••••" id="login-pass">
+        <input class="form-input" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" id="login-pass">
       </div>
       <button class="btn-primary" onclick="handleLogin()">Sign in</button>
     </div>
-
     <div class="auth-divider">or</div>
-
     <button class="btn-secondary" onclick="goToApp()">Continue with Google</button>
-
-    <div class="auth-footer">
-      Don't have an account? <a onclick="goToApp()">Create one free</a>
-    </div>
+    <div class="auth-footer">Don't have an account? <a onclick="goToApp()">Create one free</a></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     HOME SCREEN
-═══════════════════════════════════════════════════════ -->
+<!-- HOME SCREEN -->
 <div id="screen-home" class="screen">
   <div class="topbar">
     <div class="logo">
-      <div class="logo-bolt">
-        <svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
-      </div>
+      <div class="logo-bolt"><svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
       VoltPay
     </div>
     <div class="topbar-actions">
@@ -615,17 +438,9 @@ body::before {
   <div class="scroll-content">
     <div class="balance-card">
       <div class="balance-label">Total recharged this month</div>
-      <div class="balance-amount">RWF 45,000</div>
-      <div class="balance-meter">
-        <div class="meter-info">
-          <div class="meter-serial">SN: 12130262570038</div>
-          <div class="meter-name">Home  -  Kigali</div>
-        </div>
-        <div class="meter-status">
-          <div class="status-dot"></div>
-          Online
-        </div>
-      </div>
+      <div class="balance-amount" id="home-total">0 RWF</div>
+      <div class="balance-sub" id="home-meter-count">No meters added yet</div>
+      <div class="meter-chips" id="home-meter-chips"></div>
     </div>
 
     <div class="section-label">Quick actions</div>
@@ -636,15 +451,15 @@ body::before {
         </div>
         <div class="action-label">Recharge meter</div>
       </button>
-      <button class="action-btn" onclick="showScreen('screen-meters')">
+      <button class="action-btn" onclick="showScreen('screen-meters'); showTab('meters', null)">
         <div class="action-icon blue">
           <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
         <div class="action-label">My meters</div>
       </button>
-      <button class="action-btn">
+      <button class="action-btn" onclick="showScreen('screen-add-meter')">
         <div class="action-icon orange">
-          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="10" y1="10" x2="14" y2="10"/></svg>
         </div>
         <div class="action-label">Add meter</div>
       </button>
@@ -657,28 +472,28 @@ body::before {
     </div>
 
     <div class="section-label">Recent activity</div>
-    <div class="tx-list">
+    <div class="tx-list" id="home-tx-list">
       <div class="tx-item">
         <div class="tx-icon"><svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
         <div class="tx-details">
-          <div class="tx-title">Home  -  Kigali recharged</div>
-          <div class="tx-sub">Today, 2:14 PM  |  MTN MoMo</div>
+          <div class="tx-title">Home - Kigali recharged</div>
+          <div class="tx-sub">Today, 2:14 PM | MTN MoMo</div>
         </div>
         <div class="tx-amount">+10,000 RWF</div>
       </div>
       <div class="tx-item">
         <div class="tx-icon"><svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
         <div class="tx-details">
-          <div class="tx-title">Parents  -  Musanze recharged</div>
-          <div class="tx-sub">Nov 18  |  Visa card</div>
+          <div class="tx-title">Parents - Musanze recharged</div>
+          <div class="tx-sub">Nov 18 | Visa card</div>
         </div>
         <div class="tx-amount">+20,000 RWF</div>
       </div>
       <div class="tx-item">
         <div class="tx-icon"><svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
         <div class="tx-details">
-          <div class="tx-title">Home  -  Kigali recharged</div>
-          <div class="tx-sub">Nov 15  |  Mastercard</div>
+          <div class="tx-title">Home - Kigali recharged</div>
+          <div class="tx-sub">Nov 15 | Mastercard</div>
         </div>
         <div class="tx-amount">+15,000 RWF</div>
       </div>
@@ -705,9 +520,7 @@ body::before {
   </nav>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     RECHARGE SCREEN
-═══════════════════════════════════════════════════════ -->
+<!-- RECHARGE SCREEN -->
 <div id="screen-recharge" class="screen">
   <div class="topbar">
     <button class="icon-btn" onclick="showScreen('screen-home')" style="margin-left:-4px">
@@ -720,17 +533,15 @@ body::before {
   <div class="scroll-content" style="gap:1.4rem">
     <div class="form-group">
       <label class="form-label">Select meter</label>
-      <select class="form-input">
-        <option>Home  -  Kigali (SN: 12130262570038)</option>
-        <option>Parents  -  Musanze (SN: 11190261180037)</option>
-        <option>+ Add new meter</option>
+      <select class="form-input" id="recharge-meter-select">
+        <option value="">-- Select a meter --</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label class="form-label">Amount (RWF)</label>
+      <label class="form-label">Amount</label>
       <input class="form-input" type="number" placeholder="Enter amount" id="recharge-amount" value="10000">
-      <div class="amount-grid">
+      <div class="amount-grid" id="amount-chips">
         <button class="amount-chip" onclick="setAmount(5000, this)">5,000</button>
         <button class="amount-chip selected" onclick="setAmount(10000, this)">10,000</button>
         <button class="amount-chip" onclick="setAmount(20000, this)">20,000</button>
@@ -738,6 +549,7 @@ body::before {
         <button class="amount-chip" onclick="setAmount(50000, this)">50,000</button>
         <button class="amount-chip" onclick="setAmount(100000, this)">100,000</button>
       </div>
+      <div style="font-size:0.75rem;color:var(--fg-muted);margin-top:4px" id="recharge-currency-hint">Currency: RWF (Rwandan Franc)</div>
     </div>
 
     <div class="form-group">
@@ -747,7 +559,7 @@ body::before {
           <div class="pay-logo momo">MTN<br>MoMo</div>
           <div class="pay-info">
             <div class="pay-name">MTN Mobile Money</div>
-            <div class="pay-desc">Rwanda  |  Instant</div>
+            <div class="pay-desc">Rwanda | Instant</div>
           </div>
           <div class="pay-check"></div>
         </div>
@@ -755,7 +567,7 @@ body::before {
           <div class="pay-logo card">VISA<br>MC</div>
           <div class="pay-info">
             <div class="pay-name">Visa / Mastercard</div>
-            <div class="pay-desc">International  |  Via PesaPal</div>
+            <div class="pay-desc">International | Via PesaPal</div>
           </div>
           <div class="pay-check"></div>
         </div>
@@ -764,102 +576,109 @@ body::before {
 
     <div class="form-group">
       <label class="form-label">Notify recipient (optional)</label>
-      <input class="form-input" type="tel" placeholder="+250 7XX XXX XXX">
+      <input class="form-input" type="tel" placeholder="+250 7XX XXX XXX" id="recharge-notify">
     </div>
 
-    <button class="btn-primary" onclick="showSuccess()">Pay & Recharge →</button>
+    <button class="btn-primary" onclick="showSuccess()">Pay &amp; Recharge &#8594;</button>
     <button class="btn-secondary" onclick="showScreen('screen-home')">Cancel</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     METERS SCREEN
-═══════════════════════════════════════════════════════ -->
+<!-- ADD METER SCREEN -->
+<div id="screen-add-meter" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-meters')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Add Meter</div>
+    <div style="width:36px"></div>
+  </div>
+
+  <div class="scroll-content" style="gap:1.4rem">
+    <div class="form-group">
+      <label class="form-label">Select country</label>
+      <div class="country-grid" id="country-grid">
+        <button class="country-opt" data-country="Rwanda" data-flag="&#127479;&#127484;" data-currency="RWF" data-util="REG / EUCL" onclick="selectCountry(this)">
+          <span class="country-flag">&#127479;&#127484;</span>
+          <div>
+            <div class="country-name">Rwanda</div>
+            <div class="country-util">REG / EUCL</div>
+          </div>
+        </button>
+        <button class="country-opt" data-country="Uganda" data-flag="&#127482;&#127468;" data-currency="UGX" data-util="UMEME" onclick="selectCountry(this)">
+          <span class="country-flag">&#127482;&#127468;</span>
+          <div>
+            <div class="country-name">Uganda</div>
+            <div class="country-util">UMEME</div>
+          </div>
+        </button>
+        <button class="country-opt" data-country="Kenya" data-flag="&#127472;&#127466;" data-currency="KES" data-util="KPLC" onclick="selectCountry(this)">
+          <span class="country-flag">&#127472;&#127466;</span>
+          <div>
+            <div class="country-name">Kenya</div>
+            <div class="country-util">KPLC</div>
+          </div>
+        </button>
+        <button class="country-opt" data-country="Tanzania" data-flag="&#127481;&#127487;" data-currency="TZS" data-util="TANESCO" onclick="selectCountry(this)">
+          <span class="country-flag">&#127481;&#127487;</span>
+          <div>
+            <div class="country-name">Tanzania</div>
+            <div class="country-util">TANESCO</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Meter serial number</label>
+      <input class="form-input" type="text" placeholder="e.g. 12130262570038" id="add-serial" oninput="onSerialInput()">
+    </div>
+
+    <div class="verify-box" id="verify-box">
+      <div class="verify-icon">&#10003;</div>
+      <div>
+        <div class="verify-title" id="verify-owner">Owner: —</div>
+        <div class="verify-sub" id="verify-util">Utility: —</div>
+      </div>
+    </div>
+
+    <div class="error-box" id="add-error"></div>
+
+    <div class="form-group" id="nickname-group" style="display:none">
+      <label class="form-label">Nickname (e.g. "Mom's house")</label>
+      <input class="form-input" type="text" placeholder="My nickname for this meter" id="add-nickname">
+    </div>
+
+    <button class="btn-primary" id="add-meter-btn" onclick="saveMeter()" disabled>Verify &amp; Add Meter</button>
+    <button class="btn-secondary" onclick="showScreen('screen-meters')">Cancel</button>
+  </div>
+</div>
+
+<!-- METERS SCREEN -->
 <div id="screen-meters" class="screen">
   <div class="topbar">
     <button class="icon-btn" onclick="showScreen('screen-home')" style="margin-left:-4px">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="logo" style="font-size:1rem">My Meters</div>
-    <button class="icon-btn">
+    <button class="icon-btn" onclick="showScreen('screen-add-meter')" title="Add meter">
       <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     </button>
   </div>
 
-  <div class="scroll-content">
-    <div class="meter-card">
-      <div class="meter-card-top">
-        <div>
-          <div class="meter-card-serial">SN: 12130262570038</div>
-          <div class="meter-card-name">Home  -  Kigali</div>
-        </div>
-        <span class="meter-badge online">
-          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>
-          Online
-        </span>
-      </div>
-      <div class="meter-card-row">
-        <div class="meter-stat">
-          <div class="meter-stat-label">Last recharge</div>
-          <div class="meter-stat-value">RWF 10,000</div>
-        </div>
-        <div class="meter-stat">
-          <div class="meter-stat-label">Phase</div>
-          <div class="meter-stat-value">3-Phase</div>
-        </div>
-        <div class="meter-stat">
-          <div class="meter-stat-label">Today</div>
-          <div class="meter-stat-value">Nov 22</div>
-        </div>
-      </div>
-      <button class="btn-primary" style="font-size:0.9rem;padding:0.7rem" onclick="showScreen('screen-recharge')">Recharge now</button>
-    </div>
-
-    <div class="meter-card">
-      <div class="meter-card-top">
-        <div>
-          <div class="meter-card-serial">SN: 11190261180037</div>
-          <div class="meter-card-name">Parents  -  Musanze</div>
-        </div>
-        <span class="meter-badge online">
-          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>
-          Online
-        </span>
-      </div>
-      <div class="meter-card-row">
-        <div class="meter-stat">
-          <div class="meter-stat-label">Last recharge</div>
-          <div class="meter-stat-value">RWF 20,000</div>
-        </div>
-        <div class="meter-stat">
-          <div class="meter-stat-label">Phase</div>
-          <div class="meter-stat-value">1-Phase</div>
-        </div>
-        <div class="meter-stat">
-          <div class="meter-stat-label">Nov 18</div>
-          <div class="meter-stat-value">4 days ago</div>
-        </div>
-      </div>
-      <button class="btn-primary" style="font-size:0.9rem;padding:0.7rem" onclick="showScreen('screen-recharge')">Recharge now</button>
-    </div>
-
-    <button class="btn-secondary">
-      + Add another meter
-    </button>
+  <div class="scroll-content" id="meters-list">
+    <!-- populated by JS -->
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     PROFILE SCREEN
-═══════════════════════════════════════════════════════ -->
+<!-- PROFILE SCREEN -->
 <div id="screen-profile" class="screen">
   <div class="profile-hero">
-    <div class="avatar">MM</div>
-    <div class="profile-name">Moise Manzi</div>
-    <div class="profile-email">moise@metriqtech.com</div>
-    <span class="profile-tag">🌍 Diaspora account</span>
+    <div class="avatar" id="profile-avatar">MM</div>
+    <div class="profile-name" id="profile-name">Moise Manzi</div>
+    <div class="profile-email" id="profile-email">moise@metriq.africa</div>
+    <span class="profile-tag">&#127758; Diaspora account</span>
   </div>
-
   <div class="scroll-content">
     <div class="settings-list">
       <div class="settings-item">
@@ -879,12 +698,12 @@ body::before {
       </div>
       <div class="settings-item">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <span class="settings-label">Security & 2FA</span>
+        <span class="settings-label">Security &amp; 2FA</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
       <div class="settings-item">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-        <span class="settings-label">Help & support</span>
+        <span class="settings-label">Help &amp; support</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
       <div class="settings-item" onclick="handleSignOut()">
@@ -896,61 +715,63 @@ body::before {
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     SUCCESS MODAL
-═══════════════════════════════════════════════════════ -->
+<!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="success-modal">
   <div class="modal-sheet">
     <div class="success-icon">
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
     <div class="modal-title">Meter recharged!</div>
-    <div class="modal-sub">Home  -  Kigali has been recharged successfully. A confirmation SMS has been sent.</div>
+    <div class="modal-sub" id="success-desc">Meter has been recharged successfully.</div>
     <div class="modal-detail">
-      <div class="detail-row">
-        <span>Amount</span>
-        <span>RWF 10,000</span>
-      </div>
-      <div class="detail-row">
-        <span>Meter</span>
-        <span>12130262570038</span>
-      </div>
-      <div class="detail-row">
-        <span>Payment</span>
-        <span>MTN MoMo</span>
-      </div>
-      <div class="detail-row">
-        <span>Time</span>
-        <span id="success-time"></span>
-      </div>
-      <div class="detail-row">
-        <span>Ref</span>
-        <span style="font-size:0.8rem">VP-2026-00147</span>
-      </div>
+      <div class="detail-row"><span>Amount</span><span id="success-amount">—</span></div>
+      <div class="detail-row"><span>Meter</span><span id="success-meter">—</span></div>
+      <div class="detail-row"><span>Country</span><span id="success-country">—</span></div>
+      <div class="detail-row"><span>Payment</span><span id="success-pay">—</span></div>
+      <div class="detail-row"><span>Time</span><span id="success-time">—</span></div>
+      <div class="detail-row"><span>Ref</span><span style="font-size:0.8rem" id="success-ref">—</span></div>
     </div>
     <button class="btn-primary" onclick="closeSuccess()">Done</button>
-    <button class="btn-secondary" style="font-size:0.85rem;padding:0.7rem">Download receipt</button>
   </div>
 </div>
 
 <script>
-// ── SUPABASE INIT ──
+// ── SUPABASE ──
 const SUPABASE_URL = 'https://odoesozpxyqetryrdejs.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kb2Vzb3pweHlxZXRyeXJkZWpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0ODQ0NDgsImV4cCI6MjExMDA2MDQ0OH0.6y28lCkGGiupvR_Dk13g_lUn8EMq8axVNmbeHv86qwU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Check if already logged in on page load
+// ── METER STORE (localStorage) ──
+function getMeters() {
+  try { return JSON.parse(localStorage.getItem('vp_meters') || '[]'); } catch(e) { return []; }
+}
+function saveMeters(m) {
+  try { localStorage.setItem('vp_meters', JSON.stringify(m)); } catch(e) {}
+}
+
+// Country configs
+const COUNTRIES = {
+  Rwanda:   { flag: '\u{1F1F7}\u{1F1FC}', currency: 'RWF', util: 'REG / EUCL' },
+  Uganda:   { flag: '\u{1F1FA}\u{1F1EC}', currency: 'UGX', util: 'UMEME' },
+  Kenya:    { flag: '\u{1F1F0}\u{1F1EA}', currency: 'KES', util: 'KPLC' },
+  Tanzania: { flag: '\u{1F1F9}\u{1F1FF}', currency: 'TZS', util: 'TANESCO' }
+};
+
+// ── INIT ──
 window.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await sb.auth.getSession();
-  if (session) goToApp();
+  if (session) goToApp(session.user);
+  renderMetersScreen();
+  renderHomeMeters();
 });
 
+// ── AUTH ──
 async function handleLogin() {
   const email = document.getElementById('login-email').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const btn = document.querySelector('#screen-auth .btn-primary');
+  const pass  = document.getElementById('login-pass').value;
+  const btn   = document.querySelector('#screen-auth .btn-primary');
   if (!email || !pass) { alert('Please enter email and password.'); return; }
-  btn.textContent = 'Signing in…';
+  btn.innerHTML = '<span class="spinner"></span>Signing in...';
   btn.disabled = true;
   const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
   if (error) {
@@ -958,7 +779,7 @@ async function handleLogin() {
     btn.textContent = 'Sign in';
     btn.disabled = false;
   } else {
-    goToApp();
+    goToApp(data.user);
   }
 }
 
@@ -967,14 +788,27 @@ async function handleSignOut() {
   showScreen('screen-auth');
 }
 
+function goToApp(user) {
+  if (user) {
+    const name = user.user_metadata?.full_name || user.email || 'User';
+    const initials = name.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
+    document.getElementById('profile-avatar').textContent = initials;
+    document.getElementById('profile-name').textContent = name;
+    document.getElementById('profile-email').textContent = user.email || '';
+  }
+  renderHomeMeters();
+  renderMetersScreen();
+  showScreen('screen-home');
+}
+
+// ── NAVIGATION ──
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
-}
-
-function goToApp() {
-  showScreen('screen-home');
+  if (id === 'screen-meters') renderMetersScreen();
+  if (id === 'screen-home') renderHomeMeters();
+  if (id === 'screen-recharge') renderRechargeSelect();
 }
 
 function showTab(tab, el) {
@@ -982,6 +816,59 @@ function showTab(tab, el) {
   if (el) el.classList.add('active');
 }
 
+// ── HOME ──
+function renderHomeMeters() {
+  const meters = getMeters();
+  const chipsEl = document.getElementById('home-meter-chips');
+  const countEl = document.getElementById('home-meter-count');
+  const totalEl = document.getElementById('home-total');
+
+  if (meters.length === 0) {
+    chipsEl.innerHTML = '';
+    countEl.textContent = 'No meters added yet';
+    totalEl.textContent = '0 RWF';
+    return;
+  }
+
+  countEl.textContent = meters.length + ' meter' + (meters.length > 1 ? 's' : '') + ' across ' +
+    [...new Set(meters.map(m => m.country))].length + ' countr' +
+    ([...new Set(meters.map(m => m.country))].length > 1 ? 'ies' : 'y');
+
+  totalEl.textContent = '45,000 RWF';
+
+  chipsEl.innerHTML = meters.map(m => {
+    const c = COUNTRIES[m.country] || {};
+    return '<div class="meter-chip" onclick="showScreen(\'screen-recharge\')">' +
+      '<span class="flag">' + (c.flag || '') + '</span>' +
+      '<span class="chip-name">' + escHtml(m.nickname || m.serial) + '</span>' +
+      '<span class="status-dot"></span>' +
+    '</div>';
+  }).join('');
+}
+
+// ── RECHARGE SELECT ──
+function renderRechargeSelect() {
+  const meters = getMeters();
+  const sel = document.getElementById('recharge-meter-select');
+  sel.innerHTML = '<option value="">-- Select a meter --</option>';
+  meters.forEach((m, i) => {
+    const c = COUNTRIES[m.country] || {};
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = (c.flag || '') + ' ' + (m.nickname || m.serial) + ' (' + m.country + ') - SN: ' + m.serial;
+    sel.appendChild(opt);
+  });
+  sel.onchange = function() {
+    const m = meters[this.value];
+    if (m) {
+      const c = COUNTRIES[m.country] || {};
+      document.getElementById('recharge-currency-hint').textContent =
+        'Currency: ' + (c.currency || 'RWF') + ' | Utility: ' + (c.util || '');
+    }
+  };
+}
+
+// ── RECHARGE ──
 function setAmount(val, el) {
   document.getElementById('recharge-amount').value = val;
   document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('selected'));
@@ -994,26 +881,41 @@ function selectPay(el) {
 }
 
 async function showSuccess() {
-  const meter = document.querySelector('#screen-recharge select').value;
+  const sel    = document.getElementById('recharge-meter-select');
+  const meters = getMeters();
+  const mIdx   = sel.value;
+  if (mIdx === '') { alert('Please select a meter.'); return; }
+  const meter  = meters[mIdx];
   const amount = document.getElementById('recharge-amount').value;
   const method = document.querySelector('.pay-method.selected .pay-name').textContent;
-  const btn = document.querySelector('#screen-recharge .btn-primary');
+  const btn    = document.querySelector('#screen-recharge .btn-primary');
+  const c      = COUNTRIES[meter.country] || { currency: 'RWF' };
 
-  btn.textContent = 'Processing…';
+  btn.innerHTML = '<span class="spinner"></span>Processing...';
   btn.disabled = true;
 
   try {
     const res = await fetch('https://node-red-railway-template-production-49cab2ca.up.railway.app/api/recharge', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ meter, amount, method })
+      body: JSON.stringify({ meter: meter.serial, amount, method, country: meter.country })
     });
     const data = await res.json();
     if (data.success) {
       const now = new Date();
+      document.getElementById('success-amount').textContent =
+        Number(amount).toLocaleString() + ' ' + c.currency;
+      document.getElementById('success-meter').textContent = meter.serial;
+      document.getElementById('success-country').textContent =
+        (c.flag || '') + ' ' + meter.country;
+      document.getElementById('success-pay').textContent = method;
       document.getElementById('success-time').textContent =
-        now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ', ' +
-        now.toLocaleDateString([], {month: 'short', day: 'numeric'});
+        now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) + ', ' +
+        now.toLocaleDateString([],{month:'short',day:'numeric'});
+      document.getElementById('success-ref').textContent =
+        'VP-' + Date.now().toString().slice(-8);
+      document.getElementById('success-desc').textContent =
+        (meter.nickname || meter.serial) + ' has been recharged successfully.';
       document.getElementById('success-modal').classList.add('open');
     } else {
       alert('Recharge failed. Please try again.');
@@ -1029,5 +931,168 @@ async function showSuccess() {
 function closeSuccess() {
   document.getElementById('success-modal').classList.remove('open');
   showScreen('screen-home');
+}
+
+// ── ADD METER ──
+let selectedCountry = null;
+
+function selectCountry(el) {
+  document.querySelectorAll('.country-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedCountry = {
+    name:     el.dataset.country,
+    flag:     el.dataset.flag,
+    currency: el.dataset.currency,
+    util:     el.dataset.util
+  };
+  onSerialInput();
+}
+
+function onSerialInput() {
+  const serial = document.getElementById('add-serial').value.trim();
+  const btn    = document.getElementById('add-meter-btn');
+  const vBox   = document.getElementById('verify-box');
+  const nGroup = document.getElementById('nickname-group');
+  const eBox   = document.getElementById('add-error');
+
+  eBox.className = 'error-box';
+  vBox.className = 'verify-box';
+  nGroup.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Verify & Add Meter';
+
+  if (serial.length >= 8 && selectedCountry) {
+    // Simulate verification (replace with real API call when Zhongyi API is available)
+    btn.innerHTML = '<span class="spinner"></span>Verifying...';
+    btn.disabled = true;
+    setTimeout(() => {
+      // Mock: serials starting with 9999 fail
+      if (serial.startsWith('9999')) {
+        eBox.textContent = 'Meter not found. Please check the serial number and try again.';
+        eBox.className = 'error-box show';
+        btn.textContent = 'Verify & Add Meter';
+        btn.disabled = true;
+      } else {
+        // Mock owner name from serial
+        const mockOwner = 'Verified meter (' + selectedCountry.util + ')';
+        document.getElementById('verify-owner').textContent = 'Utility: ' + selectedCountry.util;
+        document.getElementById('verify-util').textContent = 'Country: ' + selectedCountry.name + ' | Currency: ' + selectedCountry.currency;
+        vBox.className = 'verify-box show';
+        nGroup.style.display = 'flex';
+        btn.textContent = 'Add Meter';
+        btn.disabled = false;
+      }
+    }, 1000);
+  }
+}
+
+function saveMeter() {
+  const serial   = document.getElementById('add-serial').value.trim();
+  const nickname = document.getElementById('add-nickname').value.trim();
+  if (!serial || !selectedCountry) return;
+
+  const meters = getMeters();
+  // Check duplicate
+  if (meters.find(m => m.serial === serial)) {
+    document.getElementById('add-error').textContent = 'This meter is already in your list.';
+    document.getElementById('add-error').className = 'error-box show';
+    return;
+  }
+  if (meters.length >= 10) {
+    document.getElementById('add-error').textContent = 'Maximum 10 meters allowed per account.';
+    document.getElementById('add-error').className = 'error-box show';
+    return;
+  }
+
+  meters.push({
+    serial,
+    nickname: nickname || serial,
+    country:  selectedCountry.name,
+    flag:     selectedCountry.flag,
+    currency: selectedCountry.currency,
+    util:     selectedCountry.util,
+    addedAt:  new Date().toISOString()
+  });
+  saveMeters(meters);
+
+  // Reset form
+  selectedCountry = null;
+  document.getElementById('add-serial').value = '';
+  document.getElementById('add-nickname').value = '';
+  document.querySelectorAll('.country-opt').forEach(o => o.classList.remove('selected'));
+  document.getElementById('verify-box').className = 'verify-box';
+  document.getElementById('nickname-group').style.display = 'none';
+  document.getElementById('add-meter-btn').disabled = true;
+
+  renderMetersScreen();
+  renderHomeMeters();
+  showScreen('screen-meters');
+}
+
+// ── METERS LIST ──
+function renderMetersScreen() {
+  const meters = getMeters();
+  const el = document.getElementById('meters-list');
+
+  if (meters.length === 0) {
+    el.innerHTML = '<div class="empty-state">' +
+      '<div class="empty-icon">&#9889;</div>' +
+      '<div class="empty-title">No meters yet</div>' +
+      '<div class="empty-sub">Add a meter to start recharging electricity for family anywhere in the world.</div>' +
+      '<button class="btn-primary" style="margin-top:1rem;max-width:240px" onclick="showScreen(\'screen-add-meter\')">+ Add your first meter</button>' +
+    '</div>';
+    return;
+  }
+
+  el.innerHTML = meters.map((m, i) => {
+    const c = COUNTRIES[m.country] || {};
+    return '<div class="meter-card">' +
+      '<div class="meter-card-top">' +
+        '<div style="display:flex;align-items:center;gap:10px">' +
+          '<span class="meter-card-flag">' + (c.flag || '') + '</span>' +
+          '<div>' +
+            '<div class="meter-card-serial">SN: ' + escHtml(m.serial) + '</div>' +
+            '<div class="meter-card-name">' + escHtml(m.nickname || m.serial) + '</div>' +
+            '<div class="meter-card-country">' + escHtml(m.country) + ' | ' + (c.util || '') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<span class="meter-badge online">' +
+          '<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>' +
+          'Online' +
+        '</span>' +
+      '</div>' +
+      '<div class="meter-card-row">' +
+        '<div class="meter-stat"><div class="meter-stat-label">Currency</div><div class="meter-stat-value">' + (c.currency || 'RWF') + '</div></div>' +
+        '<div class="meter-stat"><div class="meter-stat-label">Added</div><div class="meter-stat-value">' + new Date(m.addedAt).toLocaleDateString([],{month:'short',day:'numeric'}) + '</div></div>' +
+        '<div class="meter-stat"><div class="meter-stat-label">Status</div><div class="meter-stat-value" style="color:var(--accent)">Active</div></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px">' +
+        '<button class="btn-primary" style="font-size:0.9rem;padding:0.7rem" onclick="rechargeThisMeter(' + i + ')">Recharge now</button>' +
+        '<button class="btn-secondary" style="font-size:0.9rem;padding:0.7rem;width:auto;padding-left:1rem;padding-right:1rem" onclick="removeMeter(' + i + ')" title="Remove">&#10005;</button>' +
+      '</div>' +
+    '</div>';
+  }).join('') +
+  '<button class="btn-secondary" onclick="showScreen(\'screen-add-meter\')">+ Add another meter</button>';
+}
+
+function rechargeThisMeter(idx) {
+  showScreen('screen-recharge');
+  setTimeout(() => {
+    document.getElementById('recharge-meter-select').value = idx;
+  }, 50);
+}
+
+function removeMeter(idx) {
+  if (!confirm('Remove this meter from your list?')) return;
+  const meters = getMeters();
+  meters.splice(idx, 1);
+  saveMeters(meters);
+  renderMetersScreen();
+  renderHomeMeters();
+}
+
+// ── UTILS ──
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
