@@ -48,13 +48,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
   height: 100%; font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg); color: var(--fg);
+  background: #0D2B8A; color: var(--fg);
   font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
 }
 body {
   display: flex; flex-direction: column;
   max-width: 480px; margin: 0 auto;
   position: relative; overflow-x: hidden;
+  border-left: 3px solid #1565C0; border-right: 3px solid #1565C0;
+  box-shadow: 0 0 0 1px #0D2B8A, -4px 0 24px rgba(21,101,192,0.3), 4px 0 24px rgba(21,101,192,0.3);
+  min-height: 100%; background: var(--bg);
 }
 h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; text-wrap: balance; }
 
@@ -294,47 +297,42 @@ body::before {
 .btn-secondary:hover { border-color: var(--accent); }
 
 /* AUTH SCREEN */
-.auth-screen {
-  min-height: 100%; display: flex; flex-direction: column; gap: 0;
-}
+.auth-screen { min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(150deg, #0D2B8A 0%, #1565C0 55%, #1E88E5 100%); }
 .auth-hero-band {
-  background: linear-gradient(150deg, var(--hero-a) 0%, var(--hero-b) 55%, #1E88E5 100%);
-  padding: 3rem max(24px, env(safe-area-inset-left, 0px)) 2.5rem;
-  display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;
-  position: relative; overflow: hidden;
+  padding: 2.4rem max(24px, env(safe-area-inset-left, 0px)) 3rem;
+  display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
+  position: relative; overflow: hidden; flex-shrink: 0; flex: 1;
 }
 .auth-hero-band::before {
-  content: ""; position: absolute; top: -60px; right: -60px;
-  width: 220px; height: 220px; background: var(--accent); opacity: 0.12; border-radius: 50%;
+  content: ""; position: absolute; top: -50px; right: -50px;
+  width: 180px; height: 180px; background: #00C853; opacity: 0.14; border-radius: 50%;
 }
 .auth-hero-band::after {
-  content: ""; position: absolute; bottom: -80px; left: -40px;
-  width: 240px; height: 240px; background: var(--red); opacity: 0.09; border-radius: 50%;
+  content: ""; position: absolute; bottom: -60px; left: -30px;
+  width: 180px; height: 180px; background: #F5222D; opacity: 0.1; border-radius: 50%;
 }
 .auth-logo-big {
-  width: 80px; height: 80px; background: rgba(255,255,255,0.15);
-  border-radius: 24px; display: flex; align-items: center; justify-content: center;
-  border: 2px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px);
-  position: relative; z-index: 1;
+  width: 70px; height: 70px; background: rgba(255,255,255,0.15);
+  border-radius: 20px; display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,0.25); position: relative; z-index: 1;
 }
-.auth-logo-big svg { width: 40px; height: 40px; fill: #00E676; }
-.auth-hero-band h1 { font-size: 2rem; font-weight: 800; color: #fff; position: relative; z-index: 1; }
-.auth-hero-band p { color: rgba(255,255,255,0.75); font-size: 0.95rem; max-width: 260px; position: relative; z-index: 1; }
-.auth-flags { display: flex; gap: 6px; position: relative; z-index: 1; font-size: 1.5rem; }
+.auth-logo-big svg { width: 36px; height: 36px; fill: #00E676; }
+.auth-hero-band h1 { font-size: 1.9rem; font-weight: 800; color: #fff; position: relative; z-index: 1; letter-spacing: -0.02em; }
+.auth-hero-band .slogan { color: rgba(255,255,255,0.88); font-size: 0.92rem; font-weight: 500; max-width: 240px; position: relative; z-index: 1; line-height: 1.4; }
+.auth-flags { display: flex; gap: 5px; position: relative; z-index: 1; font-size: 1.3rem; }
 
 .auth-body {
-  flex: 1; padding: 1.5rem max(20px, env(safe-area-inset-left, 0px)) 1.5rem;
-  display: flex; flex-direction: column; gap: 12px; background: var(--surface);
-  border-radius: 24px 24px 0 0; margin-top: -20px; position: relative; z-index: 2;
+  flex-shrink: 0; padding: 1.4rem max(20px, env(safe-area-inset-left, 0px)) 2rem;
+  display: flex; flex-direction: column; gap: 11px; background: var(--surface);
+  border-radius: 22px 22px 0 0; margin-top: -22px; position: relative; z-index: 2;
   border-top: 4px solid #1565C0;
-  box-shadow: 0 -4px 24px rgba(21,101,192,0.15);
 }
-.auth-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin-bottom: 2px; }
-.auth-form { display: flex; flex-direction: column; gap: 12px; }
-.auth-divider { display: flex; align-items: center; gap: 12px; color: var(--fg-muted); font-size: 0.8rem; margin: 2px 0; }
+.auth-body h2 { font-size: 1rem; font-weight: 700; color: var(--fg); }
+.auth-form { display: flex; flex-direction: column; gap: 10px; }
+.auth-divider { display: flex; align-items: center; gap: 10px; color: var(--fg-muted); font-size: 0.75rem; }
 .auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
-.auth-footer { text-align: center; font-size: 0.85rem; color: var(--fg-muted); padding-bottom: 0.5rem; }
-.auth-footer a { color: var(--blue); font-weight: 600; cursor: pointer; }
+.auth-footer { text-align: center; font-size: 0.82rem; color: var(--fg-muted); }
+.auth-footer a { color: #1565C0; font-weight: 600; cursor: pointer; }
 
 .social-btns { display: flex; gap: 10px; margin-bottom: 2px; }
 .btn-google {
@@ -461,7 +459,7 @@ body::before {
         <svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
       </div>
       <h1>VoltPay</h1>
-      <p style="font-size:1.05rem;font-weight:600;color:rgba(255,255,255,0.92);line-height:1.4">Keep the lights on &mdash;<br>from anywhere in the world.</p>
+      <p class="slogan">Keep the lights on &mdash; from anywhere in the world.</p>
       <div class="auth-flags">&#127479;&#127484;&#160;&#127482;&#127468;&#160;&#127472;&#127466;&#160;&#127481;&#127487;&#160;&#127464;&#127465;</div>
     </div>
 
@@ -751,27 +749,27 @@ body::before {
   </div>
   <div class="scroll-content">
     <div class="settings-list">
-      <div class="settings-item">
+      <div class="settings-item" onclick="showScreen('screen-personal')">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
         <span class="settings-label">Personal details</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
-      <div class="settings-item">
+      <div class="settings-item" onclick="showScreen('screen-payment-methods')">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
         <span class="settings-label">Payment methods</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
-      <div class="settings-item">
+      <div class="settings-item" onclick="showScreen('screen-notifications')">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
         <span class="settings-label">Notifications</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
-      <div class="settings-item">
+      <div class="settings-item" onclick="showScreen('screen-security')">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <span class="settings-label">Security &amp; 2FA</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
       </div>
-      <div class="settings-item">
+      <div class="settings-item" onclick="showScreen('screen-help')">
         <div class="settings-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <span class="settings-label">Help &amp; support</span>
         <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
@@ -784,6 +782,301 @@ body::before {
     </div>
   </div>
 </div>
+
+<!-- PERSONAL DETAILS SCREEN -->
+<div id="screen-personal" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-profile')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Personal Details</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-content" style="gap:1.2rem">
+    <div class="form-group">
+      <label class="form-label">Full name</label>
+      <input class="form-input" type="text" id="pd-name" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email address</label>
+      <input class="form-input" type="email" id="pd-email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone number</label>
+      <input class="form-input" type="tel" id="pd-phone" placeholder="+1 780 XXX XXXX">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Country of residence</label>
+      <select class="form-input" id="pd-country">
+        <option>Canada</option><option>United States</option><option>United Kingdom</option>
+        <option>Belgium</option><option>France</option><option>Germany</option>
+        <option>Netherlands</option><option>Australia</option><option>Rwanda</option><option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Date of birth</label>
+      <input class="form-input" type="date" id="pd-dob">
+    </div>
+    <div class="form-group">
+      <label class="form-label">ID / Passport number (for KYC)</label>
+      <input class="form-input" type="text" id="pd-id" placeholder="Passport or national ID">
+    </div>
+    <button class="btn-primary" onclick="savePersonal()">Save changes</button>
+  </div>
+</div>
+
+<!-- PAYMENT METHODS SCREEN -->
+<div id="screen-payment-methods" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-profile')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Payment Methods</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-content" style="gap:1.2rem">
+    <div class="section-label">Mobile Money</div>
+    <div class="meter-card" style="gap:10px">
+      <div class="form-group">
+        <label class="form-label">MTN MoMo number (Rwanda / Uganda)</label>
+        <input class="form-input" type="tel" id="pm-mtn" placeholder="+250 7XX XXX XXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Airtel Money number</label>
+        <input class="form-input" type="tel" id="pm-airtel" placeholder="+250 7XX XXX XXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">M-Pesa number (Kenya / Tanzania / DRC)</label>
+        <input class="form-input" type="tel" id="pm-mpesa" placeholder="+254 7XX XXX XXX">
+      </div>
+    </div>
+    <div class="section-label">Card (International)</div>
+    <div class="meter-card" style="gap:10px">
+      <div class="form-group">
+        <label class="form-label">Cardholder name</label>
+        <input class="form-input" type="text" id="pm-card-name" placeholder="As on your card">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Card number</label>
+        <input class="form-input" type="text" id="pm-card-num" placeholder="**** **** **** ****" maxlength="19">
+      </div>
+      <div style="display:flex;gap:10px">
+        <div class="form-group" style="flex:1">
+          <label class="form-label">Expiry</label>
+          <input class="form-input" type="text" placeholder="MM/YY" maxlength="5">
+        </div>
+        <div class="form-group" style="flex:1">
+          <label class="form-label">CVV</label>
+          <input class="form-input" type="password" placeholder="***" maxlength="4">
+        </div>
+      </div>
+    </div>
+    <button class="btn-primary">Save payment methods</button>
+    <p style="font-size:0.75rem;color:var(--fg-muted);text-align:center">Your card details are encrypted and never stored on our servers. Payments processed via PesaPal.</p>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS SCREEN -->
+<div id="screen-notifications" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-profile')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Notifications</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-content" style="gap:1rem">
+    <p style="font-size:0.85rem;color:var(--fg-muted)">Choose what you want to be notified about.</p>
+    <div class="meter-card" style="gap:0">
+      <div class="settings-item" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">Recharge confirmed</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">When a meter is successfully recharged</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">Payment receipt</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">Email receipt after every payment</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">Low token alert</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">Remind me when a meter runs low</div>
+        </div>
+        <label class="toggle"><input type="checkbox" onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between;border-bottom:none">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">Promotions &amp; offers</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">News and special rates from VoltPay</div>
+        </div>
+        <label class="toggle"><input type="checkbox" onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+    </div>
+    <div class="section-label">Notify by</div>
+    <div class="meter-card" style="gap:0">
+      <div class="settings-item" style="justify-content:space-between">
+        <div style="font-weight:600;font-size:0.9rem">Push notification</div>
+        <label class="toggle"><input type="checkbox" checked onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between">
+        <div style="font-weight:600;font-size:0.9rem">Email</div>
+        <label class="toggle"><input type="checkbox" checked onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between;border-bottom:none">
+        <div style="font-weight:600;font-size:0.9rem">SMS</div>
+        <label class="toggle"><input type="checkbox" onchange="toggleNotif(this)"><span class="toggle-track"></span></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECURITY SCREEN -->
+<div id="screen-security" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-profile')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Security &amp; 2FA</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-content" style="gap:1.2rem">
+    <div class="verify-box show" style="background:var(--blue-dim);border-color:#1565C0">
+      <div class="verify-icon">&#128274;</div>
+      <div>
+        <div class="verify-title" style="color:#1565C0">Your account is protected</div>
+        <div class="verify-sub">Keep these settings up to date to protect your diaspora recharges.</div>
+      </div>
+    </div>
+    <div class="section-label">Password</div>
+    <div class="meter-card" style="gap:10px">
+      <div class="form-group">
+        <label class="form-label">Current password</label>
+        <input class="form-input" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+      </div>
+      <div class="form-group">
+        <label class="form-label">New password</label>
+        <input class="form-input" type="password" placeholder="Min 8 characters">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm new password</label>
+        <input class="form-input" type="password" placeholder="Repeat new password">
+      </div>
+      <button class="btn-primary" style="margin-top:4px">Update password</button>
+    </div>
+    <div class="section-label">Two-factor authentication</div>
+    <div class="meter-card" style="gap:0">
+      <div class="settings-item" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">SMS code on login</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">Receive a code by text message</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span></label>
+      </div>
+      <div class="settings-item" style="justify-content:space-between;border-bottom:none">
+        <div>
+          <div style="font-weight:600;font-size:0.9rem">Authenticator app</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">Google Authenticator or similar</div>
+        </div>
+        <label class="toggle"><input type="checkbox"><span class="toggle-track"></span></label>
+      </div>
+    </div>
+    <div class="section-label">Recharge PIN</div>
+    <div class="meter-card" style="gap:10px">
+      <p style="font-size:0.82rem;color:var(--fg-muted)">Set a 4-digit PIN required to approve any recharge over 50,000 RWF equivalent.</p>
+      <div class="form-group">
+        <label class="form-label">Set recharge PIN</label>
+        <input class="form-input" type="password" placeholder="4 digits" maxlength="4" inputmode="numeric">
+      </div>
+      <button class="btn-primary">Save PIN</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP SCREEN -->
+<div id="screen-help" class="screen">
+  <div class="topbar">
+    <button class="icon-btn" onclick="showScreen('screen-profile')" style="margin-left:-4px">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="logo" style="font-size:1rem">Help &amp; Support</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-content" style="gap:1rem">
+    <div class="balance-card" style="padding:1.2rem">
+      <div style="font-size:0.8rem;opacity:0.7;margin-bottom:4px">Need help?</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem">We're here 24/7</div>
+      <div style="font-size:0.82rem;opacity:0.75;margin-top:4px">Average response time: under 2 hours</div>
+    </div>
+    <div class="section-label">Contact us</div>
+    <div class="meter-card" style="gap:0">
+      <div class="settings-item">
+        <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div style="flex:1">
+          <div class="settings-label">Email support</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">support@voltpay.africa</div>
+        </div>
+      </div>
+      <div class="settings-item">
+        <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.59 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div style="flex:1">
+          <div class="settings-label">WhatsApp</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">+1 (780) XXX-XXXX</div>
+        </div>
+      </div>
+      <div class="settings-item" style="border-bottom:none">
+        <div class="settings-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div style="flex:1">
+          <div class="settings-label">Live chat</div>
+          <div style="font-size:0.75rem;color:var(--fg-muted)">Start a chat session</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-label">FAQs</div>
+    <div class="meter-card" style="gap:0">
+      <div class="settings-item" style="cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+        <span class="settings-label">How do I add a meter?</span>
+        <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div style="display:none;padding:0 0 0.8rem;font-size:0.82rem;color:var(--fg-muted);line-height:1.6">Go to My Meters, tap the + button, select the country, enter the serial number on the meter label, verify it, give it a nickname and save.</div>
+      <div class="settings-item" style="cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+        <span class="settings-label">Which countries are supported?</span>
+        <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div style="display:none;padding:0 0 0.8rem;font-size:0.82rem;color:var(--fg-muted);line-height:1.6">Rwanda, Uganda, Kenya, Tanzania and DR Congo. More countries coming soon.</div>
+      <div class="settings-item" style="cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+        <span class="settings-label">How long does a recharge take?</span>
+        <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div style="display:none;padding:0 0 0.8rem;font-size:0.82rem;color:var(--fg-muted);line-height:1.6">Mobile Money recharges are instant. Card payments via PesaPal can take 1-3 minutes.</div>
+      <div class="settings-item" style="border-bottom:none;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+        <span class="settings-label">Is my payment secure?</span>
+        <span class="settings-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div style="display:none;padding:0 0 0.8rem;font-size:0.82rem;color:var(--fg-muted);line-height:1.6">Yes. All transactions are encrypted. Card payments go through PesaPal (PCI-DSS certified). We never store your card details.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Toggle CSS -->
+<style>
+.toggle { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0; background: var(--border); border-radius: 24px;
+  cursor: pointer; transition: background 0.2s;
+}
+.toggle-track::before {
+  content: ""; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px;
+  background: white; border-radius: 50%; transition: transform 0.2s;
+}
+.toggle input:checked + .toggle-track { background: #00C853; }
+.toggle input:checked + .toggle-track::before { transform: translateX(20px); }
+</style>
 
 <!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="success-modal">
@@ -1226,6 +1519,16 @@ function removeMeter(idx) {
 }
 
 // ── UTILS ──
+function savePersonal() {
+  const btn = event.target;
+  btn.textContent = 'Saved ✓';
+  btn.style.background = '#009624';
+  setTimeout(() => { btn.textContent = 'Save changes'; btn.style.background = ''; }, 2000);
+}
+function toggleNotif(el) {
+  // placeholder — real app would persist to Supabase
+}
+
 function escHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
