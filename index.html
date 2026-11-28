@@ -297,19 +297,22 @@ body::before {
 .btn-secondary:hover { border-color: var(--accent); }
 
 /* AUTH SCREEN */
-.auth-screen { min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(150deg, #0D2B8A 0%, #1565C0 55%, #1E88E5 100%); }
+.auth-screen { min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(150deg, #0A1F6E 0%, #0D2B8A 40%, #1565C0 75%, #1976D2 100%); }
 .auth-hero-band {
   padding: 2.4rem max(24px, env(safe-area-inset-left, 0px)) 3rem;
   display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
   position: relative; overflow: hidden; flex-shrink: 0; flex: 1;
 }
+/* Energy SVG background decorations */
 .auth-hero-band::before {
-  content: ""; position: absolute; top: -50px; right: -50px;
-  width: 180px; height: 180px; background: #00C853; opacity: 0.14; border-radius: 50%;
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Cg opacity='0.07' stroke='%23ffffff' fill='none' stroke-width='1.5'%3E%3Cpolygon points='60,10 50,30 70,30' fill='%2300E676' stroke='none' opacity='0.18'/%3E%3Cpolygon points='340,80 328,104 352,104' fill='%2300E676' stroke='none' opacity='0.13'/%3E%3Cpolygon points='180,160 168,184 192,184' fill='%23FFD700' stroke='none' opacity='0.12'/%3E%3Cpolygon points='290,220 278,244 302,244' fill='%2300E676' stroke='none' opacity='0.1'/%3E%3Ccircle cx='30' cy='150' r='40' stroke='%2300C853' stroke-width='1' opacity='0.15'/%3E%3Ccircle cx='370' cy='50' r='55' stroke='%231E88E5' stroke-width='1' opacity='0.12'/%3E%3Ccircle cx='200' cy='280' r='70' stroke='%2300C853' stroke-width='1' opacity='0.1'/%3E%3Cline x1='0' y1='100' x2='120' y2='60' stroke-width='1'/%3E%3Ccircle cx='0' cy='100' r='4' fill='%23ffffff' opacity='0.2'/%3E%3Ccircle cx='120' cy='60' r='4' fill='%23ffffff' opacity='0.2'/%3E%3Cline x1='120' y1='60' x2='240' y2='90' stroke-width='1'/%3E%3Ccircle cx='240' cy='90' r='4' fill='%23ffffff' opacity='0.2'/%3E%3Cline x1='240' y1='90' x2='400' y2='50' stroke-width='1'/%3E%3Ccircle cx='400' cy='50' r='4' fill='%23ffffff' opacity='0.2'/%3E%3Cline x1='60' y1='200' x2='160' y2='170' stroke-width='1'/%3E%3Ccircle cx='60' cy='200' r='4' fill='%23ffffff' opacity='0.15'/%3E%3Ccircle cx='160' cy='170' r='4' fill='%23ffffff' opacity='0.15'/%3E%3Cline x1='160' y1='170' x2='300' y2='195' stroke-width='1'/%3E%3Ccircle cx='300' cy='195' r='4' fill='%23ffffff' opacity='0.15'/%3E%3Cline x1='300' y1='195' x2='400' y2='160' stroke-width='1'/%3E%3Crect x='100' y='130' width='8' height='8' rx='1' fill='%23ffffff' opacity='0.1'/%3E%3Crect x='260' y='40' width='8' height='8' rx='1' fill='%23ffffff' opacity='0.1'/%3E%3Crect x='350' y='180' width='8' height='8' rx='1' fill='%23ffffff' opacity='0.08'/%3E%3Cpath d='M20,250 L40,250 L35,265 L50,265 L30,290 L35,275 L20,275 Z' fill='%2300E676' opacity='0.12' stroke='none'/%3E%3Cpath d='M360,120 L380,120 L375,135 L390,135 L370,160 L375,145 L360,145 Z' fill='%23FFD700' opacity='0.1' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover; background-position: center;
 }
 .auth-hero-band::after {
-  content: ""; position: absolute; bottom: -60px; left: -30px;
-  width: 180px; height: 180px; background: #F5222D; opacity: 0.1; border-radius: 50%;
+  content: ""; position: absolute; bottom: -40px; right: -40px;
+  width: 200px; height: 200px; background: radial-gradient(circle, #00C853 0%, transparent 70%); opacity: 0.12; border-radius: 50%;
 }
 .auth-logo-big {
   width: 70px; height: 70px; background: rgba(255,255,255,0.15);
@@ -320,6 +323,7 @@ body::before {
 .auth-hero-band h1 { font-size: 1.9rem; font-weight: 800; color: #fff; position: relative; z-index: 1; letter-spacing: -0.02em; }
 .auth-hero-band .slogan { color: rgba(255,255,255,0.88); font-size: 0.92rem; font-weight: 500; max-width: 240px; position: relative; z-index: 1; line-height: 1.4; }
 .auth-flags { display: flex; gap: 5px; position: relative; z-index: 1; font-size: 1.3rem; }
+.auth-byline { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; margin-top: -4px; }
 
 .auth-body {
   flex-shrink: 0; padding: 1.4rem max(20px, env(safe-area-inset-left, 0px)) 2rem;
@@ -461,6 +465,7 @@ body::before {
       <h1>VoltPay</h1>
       <p class="slogan">Keep the lights on &mdash; from anywhere in the world.</p>
       <div class="auth-flags">&#127479;&#127484;&#160;&#127482;&#127468;&#160;&#127472;&#127466;&#160;&#127481;&#127487;&#160;&#127464;&#127465;</div>
+      <p class="auth-byline">by Metriq Technologies</p>
     </div>
 
     <div class="auth-body">
@@ -491,7 +496,64 @@ body::before {
         <button class="btn-primary" onclick="handleLogin()">Sign in &#8594;</button>
       </div>
 
-      <div class="auth-footer">Don't have an account? <a onclick="goToApp()">Create one free</a></div>
+      <div class="auth-footer">Don't have an account? <a onclick="showScreen('screen-register')">Create one free</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER SCREEN -->
+<div id="screen-register" class="screen">
+  <div class="auth-screen">
+    <div class="auth-hero-band" style="flex:0 0 auto;padding:2rem max(24px,env(safe-area-inset-left,0px)) 2.6rem">
+      <div class="auth-logo-big">
+        <svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+      </div>
+      <h1>VoltPay</h1>
+      <p class="slogan" style="font-size:0.85rem">Create your free account</p>
+      <p class="auth-byline">by Metriq Technologies</p>
+    </div>
+    <div class="auth-body" style="flex:1;overflow-y:auto">
+      <h2>Personal information</h2>
+      <div class="auth-form" style="gap:10px">
+        <div style="display:flex;gap:10px">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">First name</label>
+            <input class="form-input" type="text" id="reg-first" placeholder="First">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Last name</label>
+            <input class="form-input" type="text" id="reg-last" placeholder="Last">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input class="form-input" type="email" id="reg-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone number</label>
+          <input class="form-input" type="tel" id="reg-phone" placeholder="+1 780 XXX XXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country of residence</label>
+          <select class="form-input" id="reg-country">
+            <option value="">Select your country…</option>
+            <option>Canada</option><option>United States</option><option>United Kingdom</option>
+            <option>Belgium</option><option>France</option><option>Germany</option>
+            <option>Netherlands</option><option>Australia</option><option>Rwanda</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="reg-pass" placeholder="Min 8 characters">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm password</label>
+          <input class="form-input" type="password" id="reg-pass2" placeholder="Repeat password">
+        </div>
+        <p style="font-size:0.75rem;color:var(--fg-muted);line-height:1.5">By creating an account you agree to VoltPay's <span style="color:#1565C0;font-weight:600">Terms of Service</span> and <span style="color:#1565C0;font-weight:600">Privacy Policy</span>.</p>
+        <button class="btn-primary" onclick="handleRegister()">Create account &#8594;</button>
+      </div>
+      <div class="auth-footer">Already have an account? <a onclick="showScreen('screen-auth')">Sign in</a></div>
     </div>
   </div>
 </div>
@@ -1519,6 +1581,36 @@ function removeMeter(idx) {
 }
 
 // ── UTILS ──
+async function handleRegister() {
+  const first = document.getElementById('reg-first').value.trim();
+  const last  = document.getElementById('reg-last').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  if (!first || !last || !email || !pass) { alert('Please fill in all required fields.'); return; }
+  if (pass !== pass2) { alert('Passwords do not match.'); return; }
+  if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+  const btn = event.target;
+  btn.textContent = 'Creating account…'; btn.disabled = true;
+  try {
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const { data, error } = await sb.auth.signUp({ email, password: pass,
+      options: { data: { full_name: first + ' ' + last, phone } }
+    });
+    if (error) throw error;
+    currentUser = data.user;
+    btn.textContent = 'Create account →'; btn.disabled = false;
+    // Go to app — show success state
+    document.getElementById('user-name').textContent = first + ' ' + last;
+    document.getElementById('user-email').textContent = email;
+    showScreen('screen-home'); showTab('home', document.querySelector('.nav-item'));
+  } catch(err) {
+    btn.textContent = 'Create account →'; btn.disabled = false;
+    alert('Registration failed: ' + (err.message || err));
+  }
+}
+
 function savePersonal() {
   const btn = event.target;
   btn.textContent = 'Saved ✓';
