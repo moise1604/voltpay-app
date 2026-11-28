@@ -63,7 +63,7 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; text-wrap: balance; }
 
 .topbar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-  background: var(--surface); border-bottom: 2px solid var(--blue);
+  background: var(--surface); border-bottom: 3px solid #1565C0;
   padding: 0.9rem max(16px, env(safe-area-inset-left, 0px));
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
@@ -104,7 +104,7 @@ body::before {
 .bottom-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 480px;
-  background: var(--surface); border-top: 2px solid var(--blue);
+  background: var(--surface); border-top: 3px solid #1565C0;
   display: flex; padding-bottom: env(safe-area-inset-bottom, 0px); z-index: 10;
 }
 .nav-item {
@@ -155,7 +155,7 @@ body::before {
 }
 .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .action-btn {
-  background: var(--surface); border: 2px solid var(--border);
+  background: var(--surface); border: 2px solid #1565C0;
   border-radius: 14px; padding: 1.1rem;
   display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
   cursor: pointer; transition: border-color 0.15s, transform 0.1s; text-align: left;
@@ -192,7 +192,7 @@ body::before {
 .form-group { display: flex; flex-direction: column; gap: 6px; }
 .form-label { font-size: 0.8rem; font-weight: 500; color: var(--fg-muted); letter-spacing: 0.03em; }
 .form-input {
-  background: var(--surface); border: 1.5px solid var(--border);
+  background: var(--surface); border: 2px solid #1565C0;
   border-radius: 10px; padding: 0.75rem 0.9rem;
   font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--fg);
   transition: border-color 0.15s; width: 100%;
@@ -205,7 +205,7 @@ body::before {
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
 }
 .country-opt {
-  border: 1.5px solid var(--border); background: var(--surface);
+  border: 2px solid #1565C0; background: var(--surface);
   border-radius: 10px; padding: 0.75rem 0.9rem;
   display: flex; align-items: center; gap: 10px;
   cursor: pointer; transition: all 0.15s; text-align: left;
@@ -249,7 +249,7 @@ body::before {
 .pay-methods { display: flex; flex-direction: column; gap: 8px; }
 .pay-method {
   display: flex; align-items: center; gap: 12px; padding: 0.9rem;
-  background: var(--surface); border: 2px solid var(--border);
+  background: var(--surface); border: 2px solid #1565C0;
   border-radius: 12px; cursor: pointer; transition: border-color 0.15s;
 }
 .pay-method.selected { border-color: var(--accent); background: var(--accent-dim); border-width: 2px; }
@@ -323,11 +323,11 @@ body::before {
 .auth-flags { display: flex; gap: 6px; position: relative; z-index: 1; font-size: 1.5rem; }
 
 .auth-body {
-  flex: 1; padding: 1.75rem max(20px, env(safe-area-inset-left, 0px));
-  display: flex; flex-direction: column; gap: 14px; background: var(--surface);
+  flex: 1; padding: 1.5rem max(20px, env(safe-area-inset-left, 0px)) 1.5rem;
+  display: flex; flex-direction: column; gap: 12px; background: var(--surface);
   border-radius: 24px 24px 0 0; margin-top: -20px; position: relative; z-index: 2;
-  border-top: 3px solid var(--blue);
-  box-shadow: 0 -4px 24px rgba(21,101,192,0.12);
+  border-top: 4px solid #1565C0;
+  box-shadow: 0 -4px 24px rgba(21,101,192,0.15);
 }
 .auth-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin-bottom: 2px; }
 .auth-form { display: flex; flex-direction: column; gap: 12px; }
@@ -336,31 +336,25 @@ body::before {
 .auth-footer { text-align: center; font-size: 0.85rem; color: var(--fg-muted); padding-bottom: 0.5rem; }
 .auth-footer a { color: var(--blue); font-weight: 600; cursor: pointer; }
 
+.social-btns { display: flex; gap: 10px; margin-bottom: 2px; }
 .btn-google {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: var(--surface); border: 1.5px solid var(--border);
-  border-radius: 12px; padding: 0.85rem; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--fg);
-  transition: border-color 0.15s, box-shadow 0.15s; width: 100%;
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--surface); border: 2px solid #DADCE0;
+  border-radius: 10px; padding: 0.55rem 0.5rem; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; color: var(--fg);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.btn-google:hover { border-color: #4285F4; box-shadow: 0 2px 12px rgba(66,133,244,0.15); }
+.btn-google:hover { border-color: #4285F4; box-shadow: 0 2px 10px rgba(66,133,244,0.15); }
 .btn-apple {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: var(--fg); border: none;
-  border-radius: 12px; padding: 0.85rem; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--surface);
-  width: 100%;
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #111; border: 2px solid #111;
+  border-radius: 10px; padding: 0.55rem 0.5rem; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; color: #fff;
 }
-.social-btns { display: flex; gap: 10px; }
-.social-btns .btn-google, .social-btns .btn-apple {
-  flex: 1; padding: 0.6rem 0.5rem; font-size: 0.8rem; border-radius: 10px;
-}
-.btn-google { border: 1.5px solid var(--border); }
-.btn-apple  { border: 1.5px solid var(--fg); }
 
 /* METERS SCREEN */
 .meter-card {
-  background: var(--surface); border: 2px solid var(--blue);
+  background: var(--surface); border: 2px solid #1565C0;
   border-radius: 16px; padding: 1.1rem;
   box-shadow: 0 2px 12px rgba(21,101,192,0.08);
   display: flex; flex-direction: column; gap: 12px;
